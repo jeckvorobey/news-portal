@@ -3,6 +3,7 @@ import http from "http";
 import express from "express";
 import mongo from "./utils/mongo";
 import userRoutes from "./routes/user.routes";
+import newsRoutes from "./routes/news.routes";
 import bodyParser from "body-parser";
 
 const router = express()
@@ -24,9 +25,10 @@ router.use((req, res, next) => {
 
 	next();
 });
-
-router.use( userRoutes);
-
+// Роутинг
+router.use(userRoutes);
+router.use(newsRoutes)
+// TODO: refactor
 dotenv.config({path: '../env'})
 const port: number = Number(process.env.PORT) || 3001
 
