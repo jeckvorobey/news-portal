@@ -6,7 +6,8 @@ import signJWT from "../utils/signJWT";
 
 const validateToken = (req: Request, res: Response, next: NextFunction) => {
 	return res.status(200).json({
-		message: 'Authorized'
+		message: 'Authorized',
+		isAuthorized: true
 	})
 }
 
@@ -73,6 +74,7 @@ const login = (req: Request, res: Response, next: NextFunction) => {
 							})
 						} else if (token) {
 							return res.status(200).json({
+								isAuthorized: true,
 								message: 'Авторизован',
 								token,
 								user: user[0]
