@@ -1,14 +1,15 @@
 <template>
-  <div>
-    <header class="flex h-10">
-      <nav>
-        <router-link to="/">Home</router-link>
-        |
-        <router-link to="/news">News</router-link>
-      </nav>
-    </header>
-    <main class="bg-gray-600 min-h-screen">
-      <router-view />
-    </main>
-  </div>
+  <AppHeader />
+  <main class="bg-gray-600 min-h-screen flex items-center">
+    <router-view />
+  </main>
 </template>
+<script lang="ts">
+import AppHeader from "@/components/Header.vue";
+
+export default {
+  components: {
+    AppHeader,
+  },
+};
+</script>
