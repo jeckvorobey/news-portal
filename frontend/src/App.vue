@@ -5,11 +5,12 @@
   </main>
 </template>
 <script lang="ts">
+import { defineComponent } from "vue";
 import AppHeader from "@/components/Header.vue";
 
-export default {
+export default defineComponent({
   components: {
     AppHeader,
   },
-};
+});
 </script>
