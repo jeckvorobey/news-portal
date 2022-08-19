@@ -5,16 +5,18 @@
   </div>
   <div class="mt-3 flex justify-end">
     <button
-      disabled
       type="button"
+      @click="edit"
+      :disabled="isDisable"
       class="mr-3 w-content bg-sky-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
     >
       Редактировать
     </button>
     <button
-      disabled
       type="button"
+      :disabled="isDisable"
       class="mr-3 w-content bg-red-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+      @click="remove"
     >
       Удалить
     </button>
@@ -22,17 +24,42 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { watch, computed, defineComponent } from "vue";
 import { useRoute } from "vue-router";
 import { useOneNews } from "@/use/news";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "OneNews",
   async setup() {
     const route = useRoute();
+    const store = useStore();
+
     const oneNews = await useOneNews(route.params.id);
+
+    const isDisable = computed((): boolean => {
+      return !store.getters["userInfo/getIsAuthorized"];
+    });
+
+    const remove = () => {
+      store.dispatch("news/remove", route.params.id);
+    };
+
+    const edit = () => {
+      //edit item
+      console.log(`edit`);
+    };
+
+    const w = watch(isDisable, (nV, oV): void => {
+      console.log(`oV: ${oV}`);
+      console.log(`nV: ${nV}`);
+    });
+
     return {
       oneNews: oneNews.oneNews.value?.news,
+      isDisable,
+      edit,
+      remove,
     };
   },
 });

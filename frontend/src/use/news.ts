@@ -2,7 +2,8 @@ import { ref, Ref } from "vue";
 import { useFetch } from "@/use/fetch";
 
 interface News {
-  count: number;
+  message?: string;
+  count?: number | null;
   news: OneNews[];
 }
 
@@ -37,4 +38,16 @@ export async function useOneNews(id: string | string[]): UsableOneNews {
   await request();
 
   return { oneNews };
+}
+
+export async function useRemoveNews(id: string | string[]): UsableNews {
+  const { response: news, request } = useFetch<News>(
+    `http://localhost:3001/${id}`,
+    {
+      method: "DELETE",
+    }
+  );
+  await request();
+
+  return { news };
 }

@@ -6,4 +6,7 @@ export const mutations: MutationTree<NewsState> = {
     state.count = payload.count;
     state.news = payload.news;
   },
+  REMOVE_NEWS(state, id: string | string[]): void {
+    state.news = state.news.filter((news) => news._id !== id);
+  },
 };

@@ -7,7 +7,7 @@ export const getters: GetterTree<NewsState, RootState> = {
   getNews(state): News[] {
     return state.news;
   },
-  getCount(state): number {
+  getCount(state): number | undefined {
     return state.count;
   },
   getOneNews(state) {

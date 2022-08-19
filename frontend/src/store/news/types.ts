@@ -5,6 +5,7 @@ export interface News {
 }
 
 export interface NewsState {
-  count: number;
+  message?: string;
+  count?: number | undefined;
   news: News[];
 }
