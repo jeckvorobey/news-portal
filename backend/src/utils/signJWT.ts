@@ -8,14 +8,8 @@ const TOKEN_ISSUER = 'isUser'
 
 const signJWT = (user: IUser, callback: (err: Error | null, token: string | undefined) => void ): void => {
 	const currentTime: number = new Date().getTime()
-	console.log(`CT: ${currentTime}`)
 	const validUntilDate = currentTime + tokenTime * 100000
-	console.log(`VUD: ${validUntilDate}`)
-	const tt = Math.floor(validUntilDate / 1000)
-	console.log(`TT: ${tt}`)
-
-
-	console.log(`JWT: ${user.username}`)
+	const lifeTime = Math.floor(validUntilDate / 1000)
 	const TOKEN_SECRET = 'superSecretPassword'
 	const TOKEN_ISSUER = 'isUser'
 	try {
@@ -24,7 +18,7 @@ const signJWT = (user: IUser, callback: (err: Error | null, token: string | unde
 		}, TOKEN_SECRET, {
 			issuer: TOKEN_ISSUER,
 			algorithm: 'HS256',
-			expiresIn: tt
+			expiresIn: lifeTime
 			},
 			(err, token) => {
 			if (err) {

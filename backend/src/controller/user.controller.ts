@@ -49,7 +49,8 @@ const login = (req: Request, res: Response, next: NextFunction) => {
 	User.find({username})
 		.exec()
 		.then(user => {
-			if (user.length !== 1) {
+
+			if (user.length  > 2) {
 				return res.status(401).json({
 					message: 'Невозможно авторизоваться! Обратитесь к Администратору.'
 				})
@@ -57,18 +58,12 @@ const login = (req: Request, res: Response, next: NextFunction) => {
 
 			bcryptjs.compare(password, user[0].password, (err, success) => {
 				if (err) {
-					// TODO: RM
-					console.log(`login pass ERROR: ${err}`)
-
 					return res.status(401).json({
 						message: 'Неверный пароль'
 					})
 				} else if (success) {
 					signJWT(user[0], (err, token) => {
 						if (err) {
-							// TODO: RM
-							console.log(`signJWT login return ERROR: ${err}`)
-
 							return res.status(401).json({
 								message: 'Неизвестная ошибка'
 							})
@@ -85,9 +80,6 @@ const login = (req: Request, res: Response, next: NextFunction) => {
 			})
 		})
 		.catch(err => {
-			// TODO: RM
-			console.log(`login user.find ERROR: ${err}`)
-
 			return res.status(500).json({
 				message: 'Неизвестная ошибка',
 				err
@@ -100,4 +92,8 @@ export default {
 	validateToken,
 	login,
 	register
+}
+
+function ResBody(req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, ResBody: any) {
+    throw new Error("Function not implemented.");
 }

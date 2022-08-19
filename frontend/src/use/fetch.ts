@@ -15,6 +15,7 @@ export function useFetch<T>(
 
   const request = async () => {
     const res = await fetch(url, options);
+    console.log(res);
     response.value = await res.json();
   };
 
