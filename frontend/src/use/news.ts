@@ -43,8 +43,11 @@ export async function useOneNews(id: string | string[]): UsableOneNews {
 export async function useRemoveNews(id: string | string[]): UsableNews {
   const { response: news, request } = useFetch<News>(
     `http://localhost:3001/${id}`,
-    {
+    <RequestInit>{
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     }
   );
   await request();

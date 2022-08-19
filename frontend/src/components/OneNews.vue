@@ -50,11 +50,6 @@ export default defineComponent({
       console.log(`edit`);
     };
 
-    const w = watch(isDisable, (nV, oV): void => {
-      console.log(`oV: ${oV}`);
-      console.log(`nV: ${nV}`);
-    });
-
     return {
       oneNews: oneNews.oneNews.value?.news,
       isDisable,
