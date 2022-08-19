@@ -1,6 +1,6 @@
 import { ActionTree } from "vuex";
 import { RootState } from "../types";
-import { NewsState } from "@/store/news/types";
+import { News, NewsState } from "@/store/news/types";
 import { useNews, useRemoveNews } from "@/use/news";
 import router from "@/router";
 

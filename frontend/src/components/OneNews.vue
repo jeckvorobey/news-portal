@@ -51,7 +51,7 @@ export default defineComponent({
     };
 
     return {
-      oneNews: oneNews.oneNews.value?.news,
+      oneNews: oneNews.oneNews.value,
       isDisable,
       edit,
       remove,
