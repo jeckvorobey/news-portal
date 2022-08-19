@@ -57,7 +57,8 @@
 
 <script>
 import { defineComponent, reactive } from "vue";
-import { useUser, useRegUser } from "@/use/users";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "AuthForm",
@@ -66,31 +67,23 @@ export default defineComponent({
       username: null,
       password: null,
     });
-    // const username = ref(null);
-    // const password = ref(null);
-
-    // const data = computed(() => {
-    //   return {
-    //     username,
-    //     password,
-    //   };
-    // });
+    const store = useStore();
+    const router = useRouter();
 
     async function signIn() {
-      const response = await useUser(formData);
+      const auth = await store.dispatch("userInfo/login", formData);
+      if (store.getters["userInfo/getIsAuthorized"]) {
+        await router.push("/");
+      }
     }
 
-    async function auth() {
+    async function registration() {
       // const r = await useRegUser(data);
     }
 
-    // watch(data, (value, oldValue, onCleanup) => {
-    //   console.log(`watch: ${value.username}`);
-    // });
-
     return {
       formData,
-      auth,
+      registration,
       signIn,
     };
   },

@@ -4,10 +4,17 @@ import { useFetch } from "@/use/fetch";
 export interface User {
   _id: string;
   username: string;
-  password: string;
+  password?: string;
 }
 
-type UsableUser = Promise<{ user: Ref<User | undefined> }>;
+export interface responseUser {
+  isAuthorized: boolean;
+  message: string;
+  token: string;
+  user: User | null;
+}
+
+type UsableUser = Promise<{ responseUser: Ref<User | undefined> }>;
 
 export async function useUser(data: RequestInit) {
   const { response: user, request } = useFetch<User>(
@@ -29,7 +36,7 @@ export async function useRegUser(data: {
   password: Ref<string>;
   username: Ref<string>;
 }): UsableUser {
-  const { response: user, request } = useFetch<User>(
+  const { response: responseUser, request } = useFetch<User>(
     "http://localhost:3001/auth",
     {
       method: "POST",
@@ -38,5 +45,5 @@ export async function useRegUser(data: {
   );
   await request();
 
-  return { user };
+  return { responseUser };
 }

@@ -15,16 +15,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
 import NewsList from "@/components/NewsList.vue";
 
-export default defineComponent({
+export default {
   name: "HomeNews",
   components: {
     NewsList,
   },
-  setup() {
-    return {};
-  },
-});
+};
 </script>
