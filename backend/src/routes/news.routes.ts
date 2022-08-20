@@ -9,6 +9,7 @@ router.get('/:id', newsController.getNewsId)
 router.post('/create', extractJWT, newsController.createNews)
 router.patch('/:id', extractJWT, newsController.updateNews)
 router.delete('/:id', extractJWT, newsController.removeNews)
+router.patch('/:id', extractJWT, newsController.updateNews)
 
 
 export = router

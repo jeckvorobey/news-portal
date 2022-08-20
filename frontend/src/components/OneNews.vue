@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useOneNews } from "@/use/news";
 import { useStore } from "vuex";
 
@@ -35,6 +35,8 @@ export default defineComponent({
   name: "OneNews",
   async setup() {
     const route = useRoute();
+    const router = useRouter();
+
     const store = useStore();
 
     const oneNews = await useOneNews(route.params.id);
@@ -48,8 +50,7 @@ export default defineComponent({
     };
 
     const edit = () => {
-      //edit item
-      console.log(`edit`);
+      router.push(`/editnews/${route.params.id}`);
     };
 
     return {

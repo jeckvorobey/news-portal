@@ -80,7 +80,6 @@ export default defineComponent({
 
     async function registration() {
       const newUser = await store.dispatch("userInfo/register", formData);
-      console.log(newUser);
       if (newUser._id !== "") {
         await store.dispatch("userInfo/login", formData);
       }

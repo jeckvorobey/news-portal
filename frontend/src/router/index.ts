@@ -24,6 +24,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: { auth: true },
     component: () => import("@/views/AddNewsPage.vue"),
   },
+  {
+    path: "/editnews/:id",
+    name: "editNews",
+    meta: { auth: true },
+    component: () => import("@/views/EditNewsPage.vue"),
+  },
 ];
 
 const router = createRouter({

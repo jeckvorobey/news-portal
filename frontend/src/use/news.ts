@@ -17,7 +17,7 @@ interface AddNews {
 }
 
 interface ItemNews {
-  _id?: string;
+  _id?: string | string[];
   title: string;
   description: string;
 }
@@ -73,6 +73,24 @@ export async function useAddNews(newsData: ItemNews): UsableAddNews {
     `http://localhost:3001/create`,
     <RequestInit>{
       method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(newsData),
+    }
+  );
+  await request();
+
+  return { addNews };
+}
+
+export async function useUpdateNews(newsData: ItemNews): UsableAddNews {
+  const id = newsData._id;
+  const { response: addNews, request } = useFetch<AddNews>(
+    `http://localhost:3001/${id}`,
+    <RequestInit>{
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
