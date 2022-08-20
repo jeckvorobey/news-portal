@@ -33,25 +33,37 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
-import { useAddNews } from "@/use/news";
-
+import { defineComponent, onMounted, reactive } from "vue";
+import { useRoute } from "vue-router";
+import { useOneNews } from "@/use/news";
+import { useStore } from "vuex";
 export default defineComponent({
-  name: "AddNewsForm",
+  name: "EditNewsForm",
   setup() {
     const newsData = reactive({
+      _id: "",
       title: "",
       description: "",
     });
+    const route = useRoute();
+    const store = useStore();
+
+    const addValue = (editNews: any): void => {
+      newsData.title = editNews.title;
+      newsData.description = editNews.description;
+      newsData._id = route.params.id;
+    };
+
+    onMounted(async () => {
+      const editNews = await useOneNews(route.params.id);
+      addValue(editNews.oneNews.value?.news);
+    });
 
     const submit = async () => {
-      const addNews = await useAddNews(newsData);
-      console.log(addNews.addNews.value?.news?.title);
-
-      if (addNews.addNews.value?.message === "Новость успешно создана") {
-        alert(addNews.addNews.value?.message);
-      }
+      const updNews = await store.dispatch("news/update", newsData);
+      console.log(updNews.v);
     };
+
     return {
       newsData,
       submit,

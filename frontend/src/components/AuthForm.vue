@@ -2,7 +2,6 @@
   <h3 class="text-center font-bold mt-5">
     Авторизоваться | Зарегистрироваться
   </h3>
-  <!--  TODO: стилизовать инпуты-->
   <form class="mt-5">
     <div class="flex flex-col justify-center">
       <div class="w-10/12 mb-3 m-auto">
@@ -80,7 +79,6 @@ export default defineComponent({
 
     async function registration() {
       const newUser = await store.dispatch("userInfo/register", formData);
-      console.log(newUser);
       if (newUser._id !== "") {
         await store.dispatch("userInfo/login", formData);
       }

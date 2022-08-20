@@ -1,5 +1,5 @@
 import { MutationTree } from "vuex";
-import { News, NewsState } from "@/store/news/types";
+import { NewsState } from "@/store/news/types";
 
 export const mutations: MutationTree<NewsState> = {
   SET_NEWS(state, payload: NewsState): void {

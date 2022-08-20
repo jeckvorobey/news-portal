@@ -93,7 +93,3 @@ export default {
 	login,
 	register
 }
-
-function ResBody(req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, ResBody: any) {
-    throw new Error("Function not implemented.");
-}

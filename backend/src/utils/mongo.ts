@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
+import {config} from "../../config/config";
 
 function mongo(){
-	// TODO: перенести в env
-	const uriDb: string = 'mongodb+srv://admin:admin@cluster0.rqn9mfa.mongodb.net/?retryWrites=true&w=majority'
+
 
 	mongoose
-		.connect(uriDb)
-		.then((result) => {
+		.connect( config.MONGO_URI)
+		.then(() => {
 			console.log(`mongo connected`)
 		})
 		.catch((err) => {

@@ -1,6 +1,6 @@
-import dotenv from "dotenv";
 import http from "http";
 import express from "express";
+import {config} from "../config/config";
 import mongo from "./utils/mongo";
 import userRoutes from "./routes/user.routes";
 import newsRoutes from "./routes/news.routes";
@@ -28,9 +28,8 @@ router.use((req, res, next) => {
 // Роутинг
 router.use(userRoutes);
 router.use(newsRoutes)
-// TODO: refactor
-dotenv.config({path: '../env'})
-const port: number = Number(process.env.PORT) || 3001
+
+const port: number = config.PORT || 3001
 
 const httpServer = http.createServer(router);
 
