@@ -4,10 +4,19 @@ import { useFetch } from "@/use/fetch";
 interface News {
   message?: string;
   count?: number | null;
-  news: OneNews | undefined;
+  news: ItemNews | undefined;
 }
 
 interface OneNews {
+  news: ItemNews | undefined;
+}
+
+interface AddNews {
+  message: string;
+  news: ItemNews | undefined;
+}
+
+interface ItemNews {
   _id?: string;
   title: string;
   description: string;
@@ -15,6 +24,7 @@ interface OneNews {
 
 type UsableNews = Promise<{ news: Ref<News | undefined> }>;
 type UsableOneNews = Promise<{ oneNews: Ref<OneNews | undefined> }>;
+type UsableAddNews = Promise<{ addNews: Ref<AddNews | undefined> }>;
 
 export async function useNews(): UsableNews {
   const loading: Ref<boolean> = ref(false);
@@ -30,10 +40,15 @@ export async function useNews(): UsableNews {
 }
 
 export async function useOneNews(id: string | string[]): UsableOneNews {
+  const loading: Ref<boolean> = ref(false);
+
   const { response: oneNews, request } = useFetch<OneNews>(
     `http://localhost:3001/${id}`
   );
-  await request();
+  if (!loading.value) {
+    await request();
+    loading.value = true;
+  }
 
   return { oneNews };
 }
@@ -53,8 +68,8 @@ export async function useRemoveNews(id: string | string[]): UsableNews {
   return { news };
 }
 
-export async function useAddNews(newsData: any): UsableOneNews {
-  const { response: oneNews, request } = useFetch<OneNews>(
+export async function useAddNews(newsData: ItemNews): UsableAddNews {
+  const { response: addNews, request } = useFetch<AddNews>(
     `http://localhost:3001/create`,
     <RequestInit>{
       method: "POST",
@@ -67,5 +82,5 @@ export async function useAddNews(newsData: any): UsableOneNews {
   );
   await request();
 
-  return { oneNews };
+  return { addNews };
 }

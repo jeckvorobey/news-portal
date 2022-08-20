@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
-import HomeNews from "../views/HomePage.vue";
+import HomeNews from "@/views/HomePage.vue";
+import store from "@/store";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -20,6 +21,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/addnews",
     name: "addNews",
+    meta: { auth: true },
     component: () => import("@/views/AddNewsPage.vue"),
   },
 ];
@@ -27,6 +29,18 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const requireAuth = to.meta.auth;
+
+  if (requireAuth && store.getters["userInfo/getIsAuthorized"]) {
+    next();
+  } else if (requireAuth && !store.getters["userInfo/getIsAuthorized"]) {
+    next("/");
+  } else {
+    next();
+  }
 });
 
 export default router;

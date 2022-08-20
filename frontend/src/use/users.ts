@@ -32,14 +32,14 @@ export async function useUser(data: RequestInit) {
   return { user };
 }
 
-export async function useRegUser(data: {
-  password: Ref<string>;
-  username: Ref<string>;
-}): UsableUser {
+export async function useRegUser(data: RequestInit): UsableUser {
   const { response: responseUser, request } = useFetch<User>(
-    "http://localhost:3001/auth",
+    "http://localhost:3001/reg",
     {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
       body: JSON.stringify(data),
     }
   );

@@ -40,7 +40,7 @@
         <button
           type="button"
           class="bg-amber-600 border border-transparent rounded-md px-3 py-3 flex items-center justify-center text-base font-medium text-white hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500"
-          @click.prevent="auth"
+          @click.prevent="registration"
         >
           Зарегистрироваться
         </button>
@@ -79,7 +79,14 @@ export default defineComponent({
     }
 
     async function registration() {
-      // const r = await useRegUser(data);
+      const newUser = await store.dispatch("userInfo/register", formData);
+      console.log(newUser);
+      if (newUser._id !== "") {
+        await store.dispatch("userInfo/login", formData);
+      }
+      if (store.getters["userInfo/getIsAuthorized"]) {
+        await router.push("/");
+      }
     }
 
     return {

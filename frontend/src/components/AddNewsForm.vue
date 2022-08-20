@@ -3,7 +3,7 @@
     <div class="flex flex-col justify-center items-center px-5">
       <label for="inputTitle"></label>
       <input
-        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ring-1"
         type="text"
         name="inputTitle"
         id="inputTitle"
@@ -12,7 +12,7 @@
       />
       <label class="mt-3" for="inputDesc">Текст:</label>
       <textarea
-        class="mt-5 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        class="mt-5 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ring-1"
         name="inputDesc"
         id="inputDesc"
         cols="30"
@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, markRaw, reactive, toRefs } from "vue";
+import { defineComponent, reactive } from "vue";
 import { useStore } from "vuex";
 import { useAddNews } from "@/use/news";
 
@@ -47,8 +47,11 @@ export default defineComponent({
 
     const submit = async () => {
       const addNews = await useAddNews(newsData);
-      console.log(addNews);
-      return {};
+      console.log(addNews.addNews.value?.news?.title);
+
+      if (addNews.addNews.value?.message === "Новость успешно создана") {
+        alert(addNews.addNews.value?.message);
+      }
     };
     return {
       newsData,
