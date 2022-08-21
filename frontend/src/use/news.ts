@@ -7,7 +7,7 @@ interface News {
   news: ItemNews | undefined;
 }
 
-interface OneNews {
+export interface OneNews {
   news: ItemNews | undefined;
 }
 

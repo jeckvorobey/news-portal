@@ -35,12 +35,14 @@
 <script lang="ts">
 import { defineComponent, onMounted, reactive } from "vue";
 import { useRoute } from "vue-router";
-import { useOneNews } from "@/use/news";
+import { OneNews, useOneNews } from "@/use/news";
 import { useStore } from "vuex";
+import { News } from "@/store/news/types";
+
 export default defineComponent({
   name: "EditNewsForm",
   setup() {
-    const newsData = reactive({
+    const newsData: News = reactive({
       _id: "",
       title: "",
       description: "",
